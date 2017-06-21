@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Controlling Users</title>
+    <script src="bower_components/angular/angular.js" charset="utf-8"></script>
+
+
+    <script type:"text/javascript">
+    var app = angular.module('app', []);
+
+    app.controller('userController', function($scope) {
+        $scope.users = [{first_name: "Stephanie", last_name: "Rewis", language: "HTML"},
+        {first_name: "Blake", last_name: "Crane", language: "Swift"},
+        {first_name: "Sarah", last_name: "Fogarty", language: "Python"},
+        {first_name: "Greg", last_name: "Rewis", language: "Javascript"},
+    ];
+    $scope.addUser = function(){
+        $scope.users.push($scope.newUser);
+        $scope.newUser={};
+    }
+    $scope.deleteUser= function(userToDelete) {
+        $scope.users= $scope.users.filter( function(userObj){
+            return userObj !== userToDelete;
+        })
+    }
+});
+    </script>
+</head>
+<body>
+    <fieldset ng-controller='userController'>
+		<legend>Users Controller</legend>
+		<form>
+			<label>First Name: </label><input type="text" ng-model="newUser.first_name"><br>
+			<label>Last Name: </label><input type="text" ng-model="newUser.last_name"><br>
+			<label>Language: </label><input type="text" ng-model="newUser.language"><br>
+		</form>
+        <button ng-click="addUser(user)">Create User</button><br />
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Favorite Language</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat='userObj in users'>
+                    <td>{{userObj.first_name}}</td>
+                    <td>{{userObj.last_name}}</td>
+                    <td>{{userObj.language}}</td>
+                    <td><button ng-click='deleteUser(userObj)'>Delete User</button></td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+
+</body>
+</html>
