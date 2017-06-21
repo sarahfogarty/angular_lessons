@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+
+        <script type="text/javascript" src="angular.min.js"></script>
+        <script>
+        var app = angular.module('app', []);
+        //Factory for food
+        // main controller for application
+        app.controller('foodController', function($scope){
+        //display food
+            // git all of the food and store it in $scope attr
+            //Display on html
+        $scope.food = [{name: "pizza"}, {name: "burger"}, {name: "wings"}];
+
+
+        // add food
+        $scope.create = function(){
+            console.log($scope.newFood);
+            $scope.food.push($scope.newFood);
+            $scope.newfood = "";
+        }
+    });
+
+
+
+        </script>
+
+
+    </head>
+    <body ng-app="app">
+
+        <div ng-controller= 'foodController'>
+            <form ng-submit="create()">
+                <label for="food">Favorite Food:</label>
+                <input type="text" ng-model="newFood" />
+                <input type="submit" /><br />
+            </form>
+            <p ng-if="newFood">
+
+            Currently Typing: {{newFood}}
+        </p>
+            <br />
+            <br />
+
+<label> Search: <input placeholder="filter..." type="text" ng-model="searchText"></label>
+            <table id="searchTextResults">
+            <thead>
+                    <tr>
+                        <th>
+                            Food
+                        </th>
+                    </tr>
+            </thead>
+            <tbody>
+                    <tr ng-repeat="food in food" | filter:searchText>
+                        <td ng-bind="food.name"></td>
+                    </tr>
+            </tbody>
+
+
+            </table>
+
+        </div>
+
+    </body>
+</html>
